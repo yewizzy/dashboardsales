@@ -21,7 +21,7 @@ export default {
           renderTo: props.domId,
         },
         title: {
-          text: "Projected Sales VS Actual",
+          text: "Projected Sales by Category",
         },
         subtitle: {
           text: "Source: Sales.com",
@@ -71,10 +71,10 @@ export default {
             data: [40, 10, 106.4, 80,20],
           },
 
-          {
-            name: "Actual Sales (%)",
-            data: [40, 10, 5, 8, 10],
-          },
+          // {
+          //   name: "Actual Sales (%)",
+          //   data: [40, 10, 5, 8, 10],
+          // },
         ],
       };
       chart.value = new Highcharts.chart(columnChart);

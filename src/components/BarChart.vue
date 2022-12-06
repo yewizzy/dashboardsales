@@ -67,7 +67,7 @@ export default {
     }
   },
   series: [{
-    name: 'Lagos branch',
+    name: 'Products',
     data: [40, 10, 106.4, 80]
 
   },

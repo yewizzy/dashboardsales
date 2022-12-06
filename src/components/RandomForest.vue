@@ -24,7 +24,7 @@ export default {
     renderTo: props.domId
   },
   title: {
-    text: 'Projected Sales Versus Actual'
+    text: 'Projected Sales by Products Categories'
   },
   subtitle: {
     text: 'Source: Sales.com'
@@ -68,13 +68,13 @@ export default {
   },
   series: [
     {
-            name: "Projected (%)",
+            name: "Projected Sales(%)",
             color: '#C347BF',
             data: [40, 10, 106.4, 80,20],
           },
 
           {
-            name: "Actual  (%)",
+            name: "Product Categories  (%)",
             color: '#FA6934',
             data: [40, 10, 5, 8, 10],
           },

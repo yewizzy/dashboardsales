@@ -61,65 +61,51 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-6 mt-3">
-        <div class="col-md-12 ">
-          <div class="text-bold mt-3 px-2 fs-1 text-muted">Linear Regression </div>
-
-          <div class="col-md-12">
-            <Tables />
-          </div>
+    <div class="row mt-4">
+      <div class="col-md-6 mt-4">
+        <div class="col-md-12 mt-4">
+          <Tables />
         </div>
+
+        <!-- 
+        <div class="col-md-12  ">
+          <div class="text-bold mt-3 px-2  ">Linear Regression </div>
+
+         
+        </div> -->
       </div>
 
       <div class="col-md-6 mt-3">
-        <div class="col-md-12 border" >
-           <Linechart  domId="barchart" />
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6 mt-3">
-        <div class="col-md-12 ">
-          <div class="text-bold mt-3 px-2 fs-1 text-muted">Random Forest </div>
-
-          <div class="col-md-12">
-            <Tables />
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 mt-3">
-        <div class="col-md-12 border" >
-           <RandomForest  domId="chart" />
+        <div class="col-md-12 border">
+          <Linechart domId="barchart" />
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-md-6 mt-3">
-        <div class="col-md-12 ">
-          <div class="text-bold mt-3 px-2 fs-1 text-muted">Gradient Boosting
- </div>
-
-          <div class="col-md-12">
-            <Tables />
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 mt-3">
-        <div class="col-md-12 border" >
-           <Gradientboost  domId="boost" />
-        </div>
-      </div>
-    </div> 
 
     <div class="row"> 
       <div class="col-md-6 mt-3">
-        <div class="col-md-12 ">
-          <div class="text-bold mt-3 px-2 fs-1 text-muted">Arima </div>
+        <div class="col-md-12">
+          <div class="text-bold mt-3 px-2 fs-1 text-muted">Random Forest</div>
+
+          <div class="col-md-12">
+            <Tables />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mt-5">
+        <div class="col-md-12 border">
+          <RandomForest domId="chart" />
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="row">
+      <div class="col-md-6 mt-3">
+        <div class="col-md-12">
+          <div class="text-bold mt-3 px-2 fs-1 text-muted">
+            Gradient Boosting
+          </div>
 
           <div class="col-md-12">
             <Tables />
@@ -128,16 +114,16 @@
       </div>
 
       <div class="col-md-6 mt-3">
-        <div class="col-md-12 border" >
-           <Arima domId="arima" />
+        <div class="col-md-12 border">
+          <Gradientboost domId="boost" />
         </div>
       </div>
-    </div> 
+    </div> -->
 
-     <div class="row"> 
+    <!-- <div class="row">
       <div class="col-md-6 mt-3">
-        <div class="col-md-12 ">
-          <div class="text-bold mt-3 px-2 fs-1 text-muted">Ada Boosting </div>
+        <div class="col-md-12">
+          <div class="text-bold mt-3 px-2 fs-1 text-muted">Arima</div>
 
           <div class="col-md-12">
             <Tables />
@@ -146,15 +132,30 @@
       </div>
 
       <div class="col-md-6 mt-3">
-        <div class="col-md-12 border" >
-           <Adaboost  domId="Adaboost" />
+        <div class="col-md-12 border">
+          <Arima domId="arima" />
         </div>
       </div>
-    </div> 
-  
-  
+    </div> -->
+
+    <!-- <div class="row">
+      <div class="col-md-6 mt-3">
+        <div class="col-md-12">
+          <div class="text-bold mt-3 px-2 fs-1 text-muted">Ada Boosting</div>
+
+          <div class="col-md-12">
+            <Tables />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mt-3">
+        <div class="col-md-12 border">
+          <Adaboost domId="Adaboost" />
+        </div>
+      </div>
+    </div> -->
   </div>
-  
 </template>
 <script>
 // import sidemenu from '../components/sidemenu.vue'
@@ -163,9 +164,9 @@ import Piechart from "@/components/Piechart.vue";
 import Tables from "@/components/Tables.vue";
 import Linechart from "@/components/Linechart.vue";
 import RandomForest from "@/components/RandomForest.vue";
-import Gradientboost from "@/components/Gradientboost.vue";
-import Arima from "@/components/Arima.vue";
-import Adaboost from "@/components/Adaboost";
+// import Gradientboost from "@/components/Gradientboost.vue";
+// import Arima from "@/components/Arima.vue";
+// import Adaboost from "@/components/Adaboost";
 
 export default {
   components: {
@@ -175,10 +176,12 @@ export default {
     Tables,
     Linechart,
     RandomForest,
-    Gradientboost,
-    Arima,
-    Adaboost,
+    // Gradientboost,
+    // Arima,
+    // Adaboost,
   },
-  setup() {},
+  setup() {
+    
+  },
 };
 </script>
