@@ -33,12 +33,15 @@
       </div>
       <div class="col-md-6 mt-3">
         <div class="col-md-12 border">
-          <BarChart domId="BarChart" />
+          <BarChart domId="BarChart" :salesData ="salesData"  />
+          <!-- {{barChartYear}} -->
+          
+
         </div>
       </div>
       <div class="col-md-6 mt-3">
         <div class="col-md-12 border">
-          <Piechart domId="Piechart" />
+          <Piechart domId="Piechart" :linearRegression="linearSeries"   />
         </div>
       </div>
     </div>
@@ -159,14 +162,17 @@
 </template>
 <script>
 // import sidemenu from '../components/sidemenu.vue'
-import BarChart from "@/components/BarChart.vue";
+import BarChart from "@/components/BarChart.vue";         
 import Piechart from "@/components/Piechart.vue";
 import Tables from "@/components/Tables.vue";
 import Linechart from "@/components/Linechart.vue";
 import RandomForest from "@/components/RandomForest.vue";
+import { ref } from '@vue/reactivity';
 // import Gradientboost from "@/components/Gradientboost.vue";
 // import Arima from "@/components/Arima.vue";
 // import Adaboost from "@/components/Adaboost";
+import axios from "axios"
+import { computed } from "vue"
 
 export default {
   components: {
@@ -181,7 +187,62 @@ export default {
     // Adaboost,
   },
   setup() {
+    const salesData = ref({})
     
-  },
+    const salesByYear = () => {
+      axios.get("https://daposta.pythonanywhere.com/sales-by-year")
+      .then((res)=>{
+        salesData.value = res.data.data
+        console.log(res.data.data)
+      })
+      .catch((error) =>{
+        console.log(error)
+      })
+    }
+    salesByYear()
+
+      const barChartYear = computed(() =>{
+        return salesData.value
+      })
+    const salesByProducts = () => {
+      axios.get("https://daposta.pythonanywhere.com/sales-by-product")
+      .then((res)=>{
+        console.log(res)
+      })
+      .catch((error) =>{
+        console.log(error)
+      })
+    }
+    salesByProducts()
+    const linearSeries = ref([
+
+              {
+                name: "Laptop",
+                y: 61.04,
+                color: "#FF7448",
+                drilldown: "Zone 1",
+              },
+              {
+                name: "Car",
+                y: 9.47,
+                color: "#4E8F36",
+                drilldown: "Zone 2",
+              },
+              {
+                name: "Accessories",
+                y: 9.32,
+                color: "D5B736",
+                drilldown: "Zone 3",
+              },
+    ]);
+ 
+
+
+    return{
+      linearSeries,
+      salesData,
+      barChartYear,
+    }
+    },
 };
 </script>

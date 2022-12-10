@@ -7,7 +7,7 @@ import { onMounted, ref } from "@vue/runtime-core";
 import Highcharts from "highcharts";
 
 export default {
-  props: ["domId"],
+  props: ["domId", "linearRegression"],
   setup(props) {
     const chart = ref(null);
 
@@ -51,27 +51,28 @@ export default {
           {
             name: "",
             colorByPoint: true,
-            data: [
-              {
-                name: "Laptop",
-                y: 61.04,
-                color: "#FF7448",
-                drilldown: "Zone 1",
-              },
-              {
-                name: "Car",
-                y: 9.47,
-                color: "#4E8F36",
-                drilldown: "Zone 2",
-              },
-              {
-                name: "Accessories",
-                y: 9.32,
-                color: "D5B736",
-                drilldown: "Zone 3",
-              },
+            data: props.linearRegression
+            // data: [
+            //   {
+            //     name: "Laptop",
+            //     y: 61.04,
+            //     color: "#FF7448",
+            //     drilldown: "Zone 1",
+            //   },
+            //   {
+            //     name: "Car",
+            //     y: 9.47,
+            //     color: "#4E8F36",
+            //     drilldown: "Zone 2",
+            //   },
+            //   {
+            //     name: "Accessories",
+            //     y: 9.32,
+            //     color: "D5B736",
+            //     drilldown: "Zone 3",
+            //   },
               
-            ],
+            // ],
           },
         ],
         
