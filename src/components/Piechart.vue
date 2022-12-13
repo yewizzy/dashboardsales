@@ -3,25 +3,33 @@
   <div :id="domId"></div>
 </template>
 <script>
-import { onMounted, ref } from "@vue/runtime-core";
+import { onUpdated, ref } from "@vue/runtime-core";
 import Highcharts from "highcharts";
 
 export default {
-  props: ["domId", "linearRegression"],
+  props: ["domId", "linearSeries"],
   setup(props) {
     const chart = ref(null);
 
-    onMounted(() => {
-      let columnChart = {
+    onUpdated(() => {
+      const productCategory = props.linearSeries.map((i) => {
+        return {
+          name: i.name,
+          y: i.sales,
+        };
+      });
+      console.log(productCategory, "🤦‍♀️🤞😁");
+      let pieChart = {
         chart: {
           type: "pie",
-          renderTo: props.domId
+          renderTo: props.domId,
         },
         title: {
           text: " Actaul data set :Sales by Category",
         },
         subtitle: {
-          text: ''},
+          text: "",
+        },
 
         accessibility: {
           announceNewData: {
@@ -51,33 +59,21 @@ export default {
           {
             name: "",
             colorByPoint: true,
-            data: props.linearRegression
-            // data: [
+            data: productCategory,
+
+            // [
+
             //   {
-            //     name: "Laptop",
-            //     y: 61.04,
-            //     color: "#FF7448",
-            //     drilldown: "Zone 1",
-            //   },
-            //   {
-            //     name: "Car",
-            //     y: 9.47,
-            //     color: "#4E8F36",
-            //     drilldown: "Zone 2",
-            //   },
-            //   {
-            //     name: "Accessories",
-            //     y: 9.32,
-            //     color: "D5B736",
-            //     drilldown: "Zone 3",
-            //   },
-              
-            // ],
+            //     name: props.linearSeries[0].name,
+            //     y:  productCategory
+            //   }
+            // ]
           },
         ],
-        
       };
-      chart.value = new Highcharts.chart(columnChart);
+      chart.value = new Highcharts.chart(pieChart);
+
+      console.log(props.linearSeries);
     });
 
     return {
