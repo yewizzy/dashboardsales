@@ -43,37 +43,38 @@
         </div>
       </div>
     </div>
-    <div
-      class="
-        d-flex
-        justify-content-between
-        flex-wrap flex-md-nowrap
-        align-items-center
-        pt-3
-        pb-0
-        mb-3
-      "
-    >
-      <div class="muted">Business Growth Prediction</div>
-      <div class="btn-group me-2">
-        <button type="button" class="btn btn-sm btn-outline-primary">
-          Run Business Growth Analysis
-        </button>
+    <div class="row">
+      <div
+        class="
+          col-md-12
+          d-flex
+          justify-content-between
+          flex-wrap flex-md-nowrap
+          align-items-center
+          pt-3
+          mt-3
+          
+        "
+      >
+        <div class="muted">Business Growth Prediction</div>
+        <div
+          class="btn-group me-2 border border-danger"
+          @click="predictionAnalysis"
+        >
+          <button type="button" class="btn btn-sm btn-outline-primary">
+            Run Business Growth Analysis
+          </button>
+        </div>
+      </div>
+      <div class="col-12 p-0 border-bottom">
+        
       </div>
     </div>
 
-    <div class="row mt-4">
-      <div class="col-md-6 mt-4">
-        <div class="col-md-12 mt-4">
-          <Tables />
-        </div>
-
-        <!-- 
-        <div class="col-md-12  ">
-          <div class="text-bold mt-3 px-2  ">Linear Regression </div>
-
-         
-        </div> -->
+    <div class="row mt-3">
+      <div class="col-md-12">Linear Regression</div>
+      <div class="col-md-6 mt-3">
+        <Tables :prediction="prediction" />
       </div>
 
       <div class="col-md-6 mt-3">
@@ -162,6 +163,7 @@
 // import sidemenu from '../components/sidemenu.vue'
 import BarChart from "@/components/BarChart.vue";
 import Piechart from "@/components/Piechart.vue";
+import axios from "@/gateway/backendapi"
 import Tables from "@/components/Tables.vue";
 import Linechart from "@/components/Linechart.vue";
 import RandomForest from "@/components/RandomForest.vue";
@@ -169,7 +171,7 @@ import { ref } from "@vue/reactivity";
 // import Gradientboost from "@/components/Gradientboost.vue";
 // import Arima from "@/components/Arima.vue";
 // import Adaboost from "@/components/Adaboost";
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   components: {
@@ -186,10 +188,11 @@ export default {
   setup() {
     const salesData = ref({});
     const linearSeries = ref({});
+    const prediction = ref([]);
 
     const salesByYear = () => {
       axios
-        .get("https://daposta.pythonanywhere.com/sales-by-year")
+        .get("/sales-by-year")
         .then((res) => {
           salesData.value = res.data.data;
           console.log(res.data.data);
@@ -200,42 +203,49 @@ export default {
     };
     salesByYear();
 
+    const predictionAnalysis = async () => {
+      try {
+        let rodiat  = await axios.get(
+          "sales-prediction"
+        );
+          prediction.value = rodiat.data.data
+        console.log(rodiat.data.data, "hsdkjhdkjh");
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     const salesByProducts = () => {
       axios
-        .get("https://daposta.pythonanywhere.com/sales-by-product")
+        .get("sales-by-product")
         .then((res) => {
           linearSeries.value = res.data.data;
-          console.log(res.data.data);
+          console.log(res);
         })
         .catch((error) => {
           console.log(error);
         });
     };
     salesByProducts();
-    // const linearSeries = ref([
-    //   {
-    //     name: "Laptop",
-    //     y: 61.04,
-    //     color: "#FF7448",
-    //     drilldown: "Zone 1",
-    //   },
-    //   {
-    //     name: "Car",
-    //     y: 9.47,
-    //     color: "#4E8F36",
-    //     drilldown: "Zone 2",
-    //   },
-    //   {
-    //     name: "Accessories",
-    //     y: 9.32,
-    //     color: "D5B736",
-    //     drilldown: "Zone 3",
-    //   },
-    // ]);
+
+    // const salesByPrediction = () => {
+    //   axios
+    //     .get('/sales-prediction')
+    //     .then((res) => {
+    //       // linearSeries.value = res.data.data;
+    //       console.log(res, 'rftfhfh');
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // };
+    // salesByPrediction();
 
     return {
       linearSeries,
       salesData,
+      prediction,
+      predictionAnalysis,
     };
   },
 };

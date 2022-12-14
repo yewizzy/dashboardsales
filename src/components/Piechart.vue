@@ -18,14 +18,14 @@ export default {
           y: i.sales,
         };
       });
-      console.log(productCategory, "🤦‍♀️🤞😁");
+      console.log(productCategory);
       let pieChart = {
         chart: {
           type: "pie",
           renderTo: props.domId,
         },
         title: {
-          text: " Actaul data set :Sales by Category",
+          text: " Actual data set :Sales by Category",
         },
         subtitle: {
           text: "",
