@@ -22,7 +22,11 @@
             </div>
             <div class="btn-toolbar mb-2 mb-md-0">
               <div class="btn-group me-2">
-                <input type="file" class="btn btn-sm btn-outline-secondary" />
+                <input
+                  type="file"
+                  class="btn btn-sm btn-outline-secondary"
+                  @change="imageSelected"
+                />
                 <button type="button" class="btn btn-sm btn-outline-secondary">
                   Upload
                 </button>
@@ -53,7 +57,6 @@
           align-items-center
           pt-3
           mt-3
-          
         "
       >
         <div class="muted">Business Growth Prediction</div>
@@ -66,9 +69,7 @@
           </button>
         </div>
       </div>
-      <div class="col-12 p-0 border-bottom">
-        
-      </div>
+      <div class="col-12 p-0 border-bottom"></div>
     </div>
 
     <div class="row mt-3">
@@ -79,7 +80,7 @@
 
       <div class="col-md-6 mt-3">
         <div class="col-md-12 border">
-          <Linechart domId="barchart" />
+          <Linechart domId="chart1" :culumArray="culumArray" />
         </div>
       </div>
     </div>
@@ -163,7 +164,7 @@
 // import sidemenu from '../components/sidemenu.vue'
 import BarChart from "@/components/BarChart.vue";
 import Piechart from "@/components/Piechart.vue";
-import axios from "@/gateway/backendapi"
+import axios from "@/gateway/backendapi";
 import Tables from "@/components/Tables.vue";
 import Linechart from "@/components/Linechart.vue";
 import RandomForest from "@/components/RandomForest.vue";
@@ -189,8 +190,45 @@ export default {
     const salesData = ref({});
     const linearSeries = ref({});
     const prediction = ref([]);
+    const allPredict = ref([]);
+    const image = ref("");
 
-    const salesByYear = () => {
+    const culumArray = ref([]);
+
+    const predictionAnalysis = async () => {
+      try {
+        let data = await axios.get("sales-prediction");
+        prediction.value = data.data.data;
+        console.log(prediction.value, "rodiat");
+      } catch (error) {
+        console.log(error);
+      }
+      axios
+        .get("/sales-prediction-chart")
+        .then((res) => {
+          culumArray.value = res.data.data;
+          console.log(res, "kikky");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    const imageSelected = async (e) => {
+      image.value = e.target.files[0];
+      const formData = new FormData();
+      formData.append("file", image.value ? image.value : "");
+      console.log(formData);
+      console.log(image.value, "Am very grateful")
+
+      try {
+        let { data } = await axios.post("/file-upload", formData);
+        // imageUpload.value = data.data
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+
       axios
         .get("/sales-by-year")
         .then((res) => {
@@ -200,22 +238,7 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    };
-    salesByYear();
 
-    const predictionAnalysis = async () => {
-      try {
-        let rodiat  = await axios.get(
-          "sales-prediction"
-        );
-          prediction.value = rodiat.data.data
-        console.log(rodiat.data.data, "hsdkjhdkjh");
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    const salesByProducts = () => {
       axios
         .get("sales-by-product")
         .then((res) => {
@@ -226,26 +249,17 @@ export default {
           console.log(error);
         });
     };
-    salesByProducts();
-
-    // const salesByPrediction = () => {
-    //   axios
-    //     .get('/sales-prediction')
-    //     .then((res) => {
-    //       // linearSeries.value = res.data.data;
-    //       console.log(res, 'rftfhfh');
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // };
-    // salesByPrediction();
 
     return {
+      imageSelected,
       linearSeries,
       salesData,
       prediction,
+      image,
+      allPredict,
       predictionAnalysis,
+      culumArray,
+      // imageSelected
     };
   },
 };

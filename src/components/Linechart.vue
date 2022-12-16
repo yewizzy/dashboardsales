@@ -5,16 +5,25 @@
 </template>
 
 <script>
-import { onMounted, ref } from "@vue/runtime-core";
+import { onUpdated, ref } from "@vue/runtime-core";
 import Highcharts from "highcharts";
 
 export default {
-  props: ["domId"],
+  props: ["domId", "culumArray"],
 
   setup(props) {
     const chart = ref(null);
 
-    onMounted(() => {
+    onUpdated(() => {
+      const analysis = props.culumArray.map((i) => {
+        return i.sales;
+      });
+      console.log(analysis);
+
+      const monthPrediction = props.culumArray.map((i) => {
+        return i.month;
+      });
+      console.log(monthPrediction);
       let columnChart = {
         chart: {
           type: "column",
@@ -27,20 +36,7 @@ export default {
           text: "Source: Sales.com",
         },
         xAxis: {
-          categories: [
-            "2000",
-            "2001",
-            "2002",
-            "2003",
-            "2004",
-            "2005",
-            "2006",
-            "2007",
-            "2008",
-            "2009",
-            "2010",
-            "2011",
-          ],
+          categories: monthPrediction,
           crosshair: true,
         },
         yAxis: {
@@ -68,18 +64,13 @@ export default {
         series: [
           {
             name: "Projected Sales (%)",
-            data: [40, 10, 106.4, 80,20],
+            data: analysis,
           },
-
-          // {
-          //   name: "Actual Sales (%)",
-          //   data: [40, 10, 5, 8, 10],
-          // },
         ],
       };
       chart.value = new Highcharts.chart(columnChart);
+      console.log(props.culumArray, "God");
     });
-
     return {
       chart,
     };

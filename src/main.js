@@ -5,5 +5,6 @@ import store from './store'
 import "bootstrap/dist/css/bootstrap.min.css"
 import Highcharts from 'highcharts';
 import VueHighcharts from 'vue-highcharts';
+import ElementPlus from 'element-plus'
 
-createApp(App).use(store) .use(VueHighcharts, { Highcharts }).use(router).mount('#app')
+createApp(App).use(store) .use(VueHighcharts, { Highcharts }).use(router).use(ElementPlus).mount('#app')

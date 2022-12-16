@@ -10,17 +10,15 @@
             <tr class="bg-light">
               <th scope="col">Month</th>
               <th scope="col">Projected</th>
-              
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(prediction ,index) in allPrediction" :key="index">
-              <!-- <td >{{prediction.month}}</td> -->
-              <td >{{prediction}}</td>
+            <tr v-for="(prediction, index) in allPrediction" :key="index">
+              <td>{{ prediction.month }}</td>
+              <!-- <td >{{prediction}}</td> -->
 
-              <!-- <td>{{prediction.project}}</td> -->
-              <td>{{prediction}}</td>
-
+              <td>{{ prediction.sales }}</td>
+              <!-- <td>{{prediction}}</td> -->
             </tr>
           </tbody>
         </table>
@@ -37,8 +35,8 @@ export default {
     const allPrediction = ref([]);
 
     onUpdated(() => {
-      allPrediction.value =props.prediction
-      console.log(props.prediction,allPrediction, "ygjhgjhgj");
+      allPrediction.value = props.prediction;
+      console.log(allPrediction.value, "ygjhgjhgj");
     });
 
     return {
