@@ -169,6 +169,8 @@ import Tables from "@/components/Tables.vue";
 import Linechart from "@/components/Linechart.vue";
 import RandomForest from "@/components/RandomForest.vue";
 import { ref } from "@vue/reactivity";
+import { ElMessage } from "element-plus";
+
 // import Gradientboost from "@/components/Gradientboost.vue";
 // import Arima from "@/components/Arima.vue";
 // import Adaboost from "@/components/Adaboost";
@@ -217,16 +219,21 @@ export default {
     const imageSelected = async (e) => {
       image.value = e.target.files[0];
       const formData = new FormData();
-      formData.append("file", image.value ? image.value : "");
-      console.log(formData);
-      console.log(image.value, "Am very grateful")
-
+      formData.append("file", image.value);
       try {
-        let { data } = await axios.post("/file-upload", formData);
-        // imageUpload.value = data.data
-        console.log(data);
+        let { data } = await axios.post("/file-upload", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      
+        ElMessage({
+          showClose: true,
+          message: data.message,
+          type: "success",
+        });
+
+        console.log(data, "✔✔✔");
       } catch (error) {
-        console.log(error);
+        console.log(error, "✨😃");
       }
 
       axios
@@ -260,6 +267,7 @@ export default {
       predictionAnalysis,
       culumArray,
       // imageSelected
+      // imageUpload
     };
   },
 };
