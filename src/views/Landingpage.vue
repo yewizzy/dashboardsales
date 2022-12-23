@@ -1,11 +1,8 @@
 <template>
   <div class="container">
     <div class="row">
-      <!-- <div class="col-md-3 border">
-      <sidemenu/>
-    </div> -->
-      <div class="col-md-12 border">
-        <div class="container-fluid">
+      <div class="col-md-12">
+        <div class="container-fluid border mt-4">
           <div
             class="
               d-flex
@@ -17,19 +14,26 @@
               mb-3
             "
           >
-            <div class="muted">
-              Business growth and Continuity Prediction Portal
-            </div>
-            <div class="btn-toolbar mb-2 mb-md-0">
+            <h4>Business growth and Continuity Prediction Portal</h4>
+            <div>
               <div class="btn-group me-2">
                 <input
                   type="file"
                   class="btn btn-sm btn-outline-secondary"
                   @change="imageSelected"
                 />
-                <button type="button" class="btn btn-sm btn-outline-secondary">
-                  Upload
-                </button>
+              </div>
+              <div class="mt-2 small">
+                <a
+                  href="/files/Template.csv"
+                  class="text-decoration-none font-weight-bold"
+                  download
+                  >Download and view CSV template.</a
+                >
+                <br /><span
+                  >You can use this as a template for creating your CSV
+                  file.</span
+                >
               </div>
             </div>
           </div>
@@ -38,7 +42,6 @@
       <div class="col-md-6 mt-3">
         <div class="col-md-12 border">
           <BarChart domId="BarChart" :salesData="salesData" />
-          <!-- {{barChartYear}} -->
         </div>
       </div>
       <div class="col-md-6 mt-3">
@@ -60,14 +63,9 @@
         "
       >
         <div class="muted">Business Growth Prediction</div>
-        <div
-          class="btn-group me-2 border border-danger"
-          @click="predictionAnalysis"
+        <el-button type="primary" plain @click="predictionAnalysis">
+          Run Business Growth Analysis</el-button
         >
-          <button type="button" class="btn btn-sm btn-outline-primary">
-            Run Business Growth Analysis
-          </button>
-        </div>
       </div>
       <div class="col-12 p-0 border-bottom"></div>
     </div>
@@ -224,16 +222,21 @@ export default {
         let { data } = await axios.post("/file-upload", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-      
+
         ElMessage({
-          showClose: true,
           message: data.message,
           type: "success",
+          duration: 5000,
         });
 
-        console.log(data, "✔✔✔");
+        console.log(data.message, "✔✔✔");
       } catch (error) {
-        console.log(error, "✨😃");
+        let resData = error.response.data.message;
+        ElMessage({
+          message: resData,
+          type: "error",
+        });
+        console.log(resData, "✨😃");
       }
 
       axios
