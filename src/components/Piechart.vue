@@ -15,7 +15,7 @@ export default {
       const productCategory = props.linearSeries.map((i) => {
         return {
           name: i.name,
-          y: i.sales,
+          y: i.amount,
         };
       });
       console.log(productCategory);

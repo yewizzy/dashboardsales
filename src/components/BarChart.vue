@@ -55,7 +55,7 @@ export default {
         series: [
           {
             name: "Sales",
-            data: props.salesData.sales,
+            data: props.salesData.amount,
           },
         ],
       };
