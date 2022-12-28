@@ -71,7 +71,7 @@
     </div>
 
     <div class="row mt-3">
-      <div class="col-md-12">Linear Regression</div>
+      <!-- <div class="col-md-12">Linear Regression</div> -->
       <div class="col-md-6 mt-3">
         <Tables :prediction="prediction" />
       </div>
@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-6 mt-3">
         <div class="col-md-12">
           <div class="text-bold mt-3 px-2 fs-1 text-muted">Random Forest</div>
@@ -99,7 +99,7 @@
           <RandomForest domId="chart" />
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- <div class="row">
       <div class="col-md-6 mt-3">
@@ -165,7 +165,7 @@ import Piechart from "@/components/Piechart.vue";
 import axios from "@/gateway/backendapi";
 import Tables from "@/components/Tables.vue";
 import Linechart from "@/components/Linechart.vue";
-import RandomForest from "@/components/RandomForest.vue";
+// import RandomForest from "@/components/RandomForest.vue";
 import { ref } from "@vue/reactivity";
 import { ElMessage } from "element-plus";
 
@@ -181,7 +181,7 @@ export default {
     Piechart,
     Tables,
     Linechart,
-    RandomForest,
+    // RandomForest,
     // Gradientboost,
     // Arima,
     // Adaboost,
